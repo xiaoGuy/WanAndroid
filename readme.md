@@ -17,7 +17,7 @@
 ---
 **下载地址：**  
 
-![下载二维码](screenshoot/下载二维码.png)  
+![下载二维码](screenshoots/下载二维码.png)  
 
 [下载链接](http://app-global.pgyer.com/fc3027a17bf4e03342fd500dfdbf9968.apk?attname=XgWanAndroid.apk&sign=952c9c292bbd5c442efeeb4fe5d93ff0&t=5ca09ae1)
 
