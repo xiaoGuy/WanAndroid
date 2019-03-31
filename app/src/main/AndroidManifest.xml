@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools" package="wanandroid.xg.com.wanandroid">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:name="com.xg.wanandroid.WanAndroidApplication"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="com.xg.wanandroid.splash.SplashActivity"
+                  android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.xg.wanandroid.hierarchy.ui.HierarchyArticlesActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.xg.wanandroid.search.ui.SearchActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.xg.wanandroid.account.ui.RegisterActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.LoginActivity"/>
+        <activity android:name="com.xg.wanandroid.account.ui.LoginActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.LoginActivity"/>
+        <activity android:name="com.xg.wanandroid.MainActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.xg.wanandroid.common.ui.WebViewActivity"/>
+        <activity android:name="com.xg.wanandroid.collection.ui.CollectionActivity"/>
+    </application>
+
+</manifest>

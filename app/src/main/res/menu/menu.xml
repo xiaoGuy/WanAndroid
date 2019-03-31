@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search"
+        android:title="搜索"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/login"
+        android:title="登录"
+        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:title="导航"-->
+        <!--app:showAsAction="never"/>-->
+</menu>
