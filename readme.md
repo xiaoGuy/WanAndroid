@@ -5,15 +5,15 @@
 使用 Kotlin 编写  
 话不多说，先上图  
 
-![启动页](screenshoot/splash.png)  
-![首页](screenshoot/home.png)  
-![项目](screenshoot/project.png)  
-![体系](screenshoot/hierarchy.png)  
-![搜索](screenshoot/search.png)  
-![登录](screenshoot/login.png)  
+![启动页](screenshoots/splash.png)  
+![首页](screenshoots/home.png)  
+![项目](screenshoots/project.png)  
+![体系](screenshoots/hierarchy.png)  
+![搜索](screenshoots/search.png)  
+![登录](screenshoots/login.png)  
 
 个人感觉界面还是比较清新简洁的，哈哈
-  
+
 ---
 **下载地址：**  
 
