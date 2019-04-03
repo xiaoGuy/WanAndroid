@@ -45,10 +45,10 @@ class SearchFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListener 
         Api.service.search(0, keyword)
                 .ioToMainThread()
                 .subscribe({
-                    if (it.data.data.isEmpty()) {
+                    if (it.data.isEmpty()) {
                         showEmptyView()
                     } else {
-                        adapter.setNewData(it.data.data)
+                        adapter.setNewData(it.data)
                         pageNo = 1
                         showContentView()
                     }
@@ -66,8 +66,8 @@ class SearchFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListener 
         Api.service.search(pageNo, keyword)
                 .ioToMainThread()
                 .subscribe({
-                    adapter.addData(it.data.data)
-                    if (it.data.over) {
+                    adapter.addData(it.data)
+                    if (it.over) {
                         adapter.loadMoreEnd()
                     } else {
                         adapter.loadMoreComplete()

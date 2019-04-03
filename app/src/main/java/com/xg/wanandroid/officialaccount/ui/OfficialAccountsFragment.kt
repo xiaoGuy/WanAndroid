@@ -51,11 +51,11 @@ class OfficialAccountsFragment : BaseFragment() {
         Api.service.getOfficialAccounts()
                 .ioToMainThread()
                 .subscribe({
-                    if (it.data.isEmpty()) {
+                    if (it.isEmpty()) {
                         showEmptyView()
                     } else {
                         val adapter = ArticlePagerAdapter(_mActivity.supportFragmentManager,
-                                ArticlesFragment.TYPE_OFFICIAL_ACCOUNTS, it.data)
+                                ArticlesFragment.TYPE_OFFICIAL_ACCOUNTS, it)
                         viewPager.adapter = adapter
                         tabLayout.setupWithViewPager(viewPager)
                         showContentView()

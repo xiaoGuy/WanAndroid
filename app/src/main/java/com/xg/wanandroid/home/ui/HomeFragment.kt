@@ -25,9 +25,9 @@ import com.xg.wanandroid.core.extension.showToast
 import com.xg.wanandroid.home.adapter.HomePageAdapter
 import com.xg.wanandroid.home.model.HomePageData
 import com.xg.wanandroid.network.api.Api
+import com.xg.wanandroid.network.exception.ApiException
 import com.xg.wanandroid.network.modal.Article
 import com.xg.wanandroid.network.modal.BannerData
-import com.xg.wanandroid.network.modal.BaseResponse
 import com.xg.wanandroid.network.modal.ListResponse
 import com.xg.wanandroid.search.ui.SearchActivity
 import com.xg.wanandroid.util.LoginUtils
@@ -147,15 +147,15 @@ class HomeFragment: BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefreshLis
         val getArticles = Api.service.getArticles(0)
 
         Observable.combineLatest(getBannerData, getTopArticles, getArticles,
-                Function3<BaseResponse<List<BannerData>>, BaseResponse<List<Article>>, BaseResponse<ListResponse<Article>>, HomePageData> {
+                Function3<List<BannerData>, List<Article>, ListResponse<Article>, HomePageData> {
                     bannerData, topArticles, articles ->
                         val homePageData = HomePageData(mutableListOf(), mutableListOf())
-                        homePageData.bannerData.addAll(bannerData.data)
-                        homePageData.articles.addAll(topArticles.data)
+                        homePageData.bannerData.addAll(bannerData)
+                        homePageData.articles.addAll(topArticles)
                         homePageData.articles.forEach {
                             it.top = true
                         }
-                        homePageData.articles.addAll(articles.data.data)
+                        homePageData.articles.addAll(articles.data)
                         return@Function3 homePageData
                 }).ioToMainThread()
                 .subscribe({
@@ -173,10 +173,12 @@ class HomeFragment: BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefreshLis
                 }, {
                     swipeRefreshLayout.isRefreshing = false
 
+                    val errorMsg = if (it is ApiException) "code: ${it.errorCode} \n ${it.errorMsg}"
+                                   else {it.message ?: "请求失败"}
                     if (adapter.data.isEmpty()) {
-                        showErrorView("请求失败")
+                        showErrorView(errorMsg)
                     } else {
-                        showToast(it.message)
+                        showToast(errorMsg)
                     }
                 })
     }
@@ -194,8 +196,8 @@ class HomeFragment: BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefreshLis
                 .subscribe({
                     swipeRefreshLayout.isEnabled = true
 
-                    adapter.addData(it.data.data)
-                    if (it.data.over) {
+                    adapter.addData(it.data)
+                    if (it.over) {
                         adapter.loadMoreEnd()
                     } else {
                         adapter.loadMoreComplete()

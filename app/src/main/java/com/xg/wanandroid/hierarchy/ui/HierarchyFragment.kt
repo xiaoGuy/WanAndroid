@@ -62,11 +62,11 @@ class HierarchyFragment: BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefre
                 .subscribe({
                     swipeRefreshLayout.isRefreshing = false
 
-                    if (it.data.isEmpty()) {
+                    if (it.isEmpty()) {
                         showEmptyView()
                     } else {
                         data.clear()
-                        it.data.forEach { it ->
+                        it.forEach { it ->
                             val itemParent = ItemParent(it.name)
                             it.children.forEach { it ->
                                 itemParent.addSubItem(ItemChild(it))

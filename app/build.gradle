@@ -23,6 +23,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+    signingConfigs {
+        release {
+            storeFile file("../keystore")
+            storePassword "65316137"
+            keyAlias "wanandroid"
+            keyPassword "65316137"
+            v2SigningEnabled false
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 dependencies {

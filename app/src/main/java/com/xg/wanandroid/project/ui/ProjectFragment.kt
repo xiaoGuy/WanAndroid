@@ -51,11 +51,11 @@ class ProjectFragment : BaseFragment() {
         Api.service.getProjectType()
                 .ioToMainThread()
                 .subscribe({
-                    if (it.data.isEmpty()) {
+                    if (it.isEmpty()) {
                         showEmptyView()
                     } else {
                         val adapter = ArticlePagerAdapter(_mActivity.supportFragmentManager,
-                                ArticlesFragment.TYPE_PROJECT, it.data)
+                                ArticlesFragment.TYPE_PROJECT, it)
                         viewPager.adapter = adapter
                         tabLayout.setupWithViewPager(viewPager)
                         showContentView()

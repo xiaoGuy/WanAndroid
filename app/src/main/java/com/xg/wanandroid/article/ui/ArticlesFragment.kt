@@ -15,7 +15,6 @@ import com.xg.wanandroid.common.view.SpaceItemDecoration
 import com.xg.wanandroid.core.extension.ioToMainThread
 import com.xg.wanandroid.network.api.Api
 import com.xg.wanandroid.network.modal.Article
-import com.xg.wanandroid.network.modal.BaseResponse
 import com.xg.wanandroid.network.modal.ListResponse
 import io.reactivex.Observable
 import wanandroid.xg.com.wanandroid.R
@@ -86,7 +85,7 @@ class ArticlesFragment : BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefre
     override fun onRefresh() {
         adapter.setEnableLoadMore(false)
 
-        var response: Observable<BaseResponse<ListResponse<Article>>>? = null
+        var response: Observable<ListResponse<Article>>? = null
         when(type) {
             TYPE_HIERARCHY -> response = Api.service.getArticlesByKnowledgeHierarchy(0, cid)
             TYPE_OFFICIAL_ACCOUNTS -> response = Api.service.getArticlesByOfficialAccount(0, cid)
@@ -97,10 +96,10 @@ class ArticlesFragment : BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefre
                     adapter.setEnableLoadMore(true)
                     swipeRefreshLayout.isRefreshing = false
 
-                    if (it.data.data.isEmpty()) {
+                    if (it.data.isEmpty()) {
                         showEmptyView()
                     } else {
-                        adapter.setNewData(it.data.data)
+                        adapter.setNewData(it.data)
                         showContentView()
                     }
                     pageNo = 1
@@ -113,7 +112,7 @@ class ArticlesFragment : BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefre
     override fun onLoadMoreRequested() {
         swipeRefreshLayout.isEnabled = false
 
-        var response: Observable<BaseResponse<ListResponse<Article>>>? = null
+        var response: Observable<ListResponse<Article>>? = null
         when(type) {
             TYPE_HIERARCHY -> response = Api.service.getArticlesByKnowledgeHierarchy(pageNo, cid)
             TYPE_OFFICIAL_ACCOUNTS -> response = Api.service.getArticlesByOfficialAccount(pageNo, cid)
@@ -124,8 +123,8 @@ class ArticlesFragment : BaseFragment(), ScrollToTop, SwipeRefreshLayout.OnRefre
                 ?.subscribe({
                     swipeRefreshLayout.isEnabled = true
 
-                    adapter.addData(it.data.data)
-                    if (it.data.over) {
+                    adapter.addData(it.data)
+                    if (it.over) {
                         adapter.loadMoreEnd()
                     } else {
                         pageNo ++

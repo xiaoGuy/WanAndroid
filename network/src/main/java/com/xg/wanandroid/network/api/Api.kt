@@ -1,7 +1,9 @@
 package com.xg.wanandroid.network.api
 
 import com.blankj.utilcode.util.Utils
+import com.google.gson.GsonBuilder
 import com.xg.wanandroid.core.extension.WanAndroid
+import com.xg.wanandroid.network.converter.CustomGsonConverterFactory
 import com.xg.wanandroid.network.cookies.CookieJarImp
 import com.xg.wanandroid.network.interceptor.AddUserAgentInterceptor
 import leavesc.hello.monitor.MonitorInterceptor
@@ -9,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
@@ -34,7 +35,7 @@ object Api {
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(CustomGsonConverterFactory.create(GsonBuilder().setPrettyPrinting().create()))
                 .build()
         service = retrofit.create(ApiService::class.java)
     }

@@ -41,8 +41,8 @@ class HotSearchKeyword : BaseFragment() {
                 .ioToMainThread()
                 .subscribe({
                     logDebug(it.toString())
-                    if (it.data.isNotEmpty()) {
-                        adapter.addData(it.data)
+                    if (it.isNotEmpty()) {
+                        adapter.addData(it)
                         root.visibility = View.VISIBLE
                     }
                 }, {

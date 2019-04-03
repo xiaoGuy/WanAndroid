@@ -9,6 +9,7 @@ import com.xg.wanandroid.common.ui.BaseActivity
 import com.xg.wanandroid.core.extension.ioToMainThread
 import com.xg.wanandroid.core.extension.showToast
 import com.xg.wanandroid.network.api.Api
+import com.xg.wanandroid.network.exception.ApiException
 import kotlinx.android.synthetic.main.activity_register.*
 import wanandroid.xg.com.wanandroid.R
 
@@ -44,14 +45,15 @@ class RegisterActivity : BaseActivity() {
                     .ioToMainThread()
                     .subscribe({
                         updateUI(false)
-                        if (it.errorCode != 0) {
-                            showToast(it.errorMsg)
-                        } else {
+//                        if (it.errorCode != 0) {
+//                            showToast(it.errorMsg)
+//                        } else {
                             showToast("注册成功")
-                        }
+//                        }
                     }, {
                         updateUI(false)
-                        showToast(it.message)
+                        val errorMsg = if (it is ApiException) it.errorMsg else {it.message ?: "登录失败"}
+                        showToast(errorMsg)
                     })
         }
         dismiss.setOnClickListener {

@@ -65,13 +65,13 @@ class CollectionActivity: BaseActivity(), SwipeRefreshLayout.OnRefreshListener, 
                     adapter.setEnableLoadMore(true)
                     swipeRefreshLayout.isRefreshing = false
 
-                    if (it.data.data.isEmpty()) {
+                    if (it.data.isEmpty()) {
                         showEmptyView()
                     } else {
                         showContentView()
-                        adapter.setNewData(it.data.data)
+                        adapter.setNewData(it.data)
                         pageNo = 0
-                        if (it.data.over) {
+                        if (it.over) {
                             adapter.loadMoreEnd()
                         }
                     }
@@ -94,8 +94,8 @@ class CollectionActivity: BaseActivity(), SwipeRefreshLayout.OnRefreshListener, 
         Api.service.getCollectArticles(pageNo)
                 .ioToMainThread()
                 .subscribe({
-                    adapter.addData(it.data.data)
-                    if (it.data.over) {
+                    adapter.addData(it.data)
+                    if (it.over) {
                         adapter.loadMoreEnd()
                     } else {
                         adapter.loadMoreComplete()

@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -98,16 +97,12 @@ abstract class BaseAdapter : BaseQuickAdapter<Article, BaseViewHolder>(R.layout.
                                    else  Api.service.collectArticle(data.id)
                     response.ioToMainThread()
                             .subscribe({
-                                if (it.errorCode == 0) {
                                     data.collect = !data.collect
                                     // BaseRecyclerViewAdapterHelper 能够自动跳过 HeaderView，返回正确的 position
                                     // 但是 notifyItemChanged 是 RecyclerView.Adapter 的方法，而且是 final，
                                     // 对于 RecyclerView.Adapter 来说，HeaderView 也是数据集的一部分，所以在调用
                                     // 局部刷新的方法时要跳过 HeaderView
                                     notifyItemChanged(headerLayoutCount + position)
-                                } else {
-                                    ToastUtils.showShort(it.errorMsg)
-                                }
                             }, {
                                 it.printStackTrace()
                             })
